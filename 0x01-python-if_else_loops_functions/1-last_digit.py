@@ -5,7 +5,7 @@ print(f"Last digit of {number} is", end=" ")
 if (number < 0):
     print(f"-{number % 10}", end=" ")
 else:
-    print(f"{number % 10}" end=" ")
+    print(f"{number % 10}", end=" ")
 if (number % 10 == 0):
     print("and is 0")
 elif (number % 10 < 6):
