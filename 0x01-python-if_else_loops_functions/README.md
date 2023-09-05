@@ -126,4 +126,4 @@ Prototypes for functions written in this project:
   bytecode provided by Holberton School.
 
 * *Note*
--The README written by Lordwill-
+-This README was written by Lordwill-
