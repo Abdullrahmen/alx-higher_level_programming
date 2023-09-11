@@ -1,53 +1,26 @@
 #include "lists.h"
 
 /**
-* len_list - len of the linked list
-* @list: head
-* Return: the length
-*/
-int len_list(listint_t *list)
+ * reverse_listint - reverses a linked list
+ * @head: pointer to the first node in the list
+ *
+ * Return: pointer to the first node in the new list
+ */
+void reverse_listint(listint_t **head)
 {
-	int l = 0;
+	listint_t *prev = NULL;
+	listint_t *current = *head;
+	listint_t *next = NULL;
 
-	if (!list)
-		return (0);
-	while (list)
+	while (current)
 	{
-		list = list->next;
-		++l;
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
 	}
-	return (l);
-}
 
-/**
-* reversed_second_half - reverse the second half of the linked list
-* @head: head
-* @len: len
-* Return: new list contains the values of the reversed second half
-*/
-int **reversed_second_half(listint_t *head, int len)
-{
-	int **sec_half = NULL, len2 = 0, i = 0;
-
-	if (!head)
-		return (NULL);
-	if (len % 2 == 0)
-		len2 = len / 2;
-	else
-		len2 = len / 2 + 1;
-	len = len / 2;
-	sec_half = malloc(sizeof(int *) * (len + 1));
-	sec_half[len--] = NULL;
-	for (i = 0; i < len2; ++i)
-		head = head->next;
-	while (len)
-	{
-		sec_half[len] = &head->n;
-		head = head->next;
-		--len;
-	}
-	sec_half[len] = &head->n;
-	return (sec_half);
+	*head = prev;
 }
 
 /**
@@ -58,25 +31,42 @@ int **reversed_second_half(listint_t *head, int len)
  */
 int is_palindrome(listint_t **head)
 {
-	int **sec_half, **temp, len = 0, is_pal = 1;
-	listint_t *iter = NULL;
+	listint_t *slow = *head, *fast = *head, *temp = *head, *dup = NULL;
 
-	if (!head || !*head)
+	if (*head == NULL || (*head)->next == NULL)
 		return (1);
-	len = len_list(*head);
-	sec_half = reversed_second_half(*head, len);
-	iter = *head;
-	temp = sec_half;
-	while (*sec_half)
+
+	while (1)
 	{
-		if (iter->n != **sec_half)
+		fast = fast->next->next;
+		if (!fast)
 		{
-			is_pal = 0;
+			dup = slow->next;
 			break;
 		}
-		++sec_half;
-		iter = iter->next;
+		if (!fast->next)
+		{
+			dup = slow->next->next;
+			break;
+		}
+		slow = slow->next;
 	}
-	free(temp);
-	return (is_pal);
+
+	reverse_listint(&dup);
+
+	while (dup && temp)
+	{
+		if (temp->n == dup->n)
+		{
+			dup = dup->next;
+			temp = temp->next;
+		}
+		else
+			return (0);
+	}
+
+	if (!dup)
+		return (1);
+
+	return (0);
 }
