@@ -3,7 +3,7 @@
 /**
 * len_list - len of the linked list
 * @list: head
-* @Return: the length
+* Return: the length
 */
 int len_list(listint_t *list)
 {
@@ -36,7 +36,7 @@ int **reversed_second_half(listint_t *head, int len)
 	else
 		len2 = len / 2 + 1;
 	len = len / 2;
-	sec_half = malloc(sizeof(int*) * (len + 1));
+	sec_half = malloc(sizeof(int *) * (len + 1));
 	sec_half[len--] = NULL;
 	for (i = 0; i < len2; ++i)
 		head = head->next;
