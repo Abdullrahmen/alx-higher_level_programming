@@ -8,4 +8,4 @@ def uniq_add(my_list=[]):
             continue
         uniq_mat.append(i)
         summ += i
-    return i
+    return summ
